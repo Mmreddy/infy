@@ -1,26 +1,13 @@
-#
-# https://github.com/dockerfile/java
-# https://github.com/dockerfile/java/tree/master/oracle-java8
-#
+FROM ubuntu:14.04
 
-# Pull base image.
-FROM oraclelinux
+MAINTAINER mahesh
 
-# Install Java.
-RUN \
-  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-  add-apt-repository -y ppa:webupd8team/java && \
-  apt-get update && \
-  apt-get install -y oracle-java8-installer && \
-  rm -rf /var/lib/apt/lists/* && \
-  rm -rf /var/cache/oracle-jdk8-installer
+# disable interactive functions
+ENV DEBIAN_FRONTEND noninteractive
 
+# set default java environment variable
+ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
-# Define working directory.
-WORKDIR /data
-
-# Define commonly used JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
-
-# Define default command.
-CMD ["bash"]
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends openjdk-7-jdk
+RUN rm -rf /var/lib/apt/lists/*
