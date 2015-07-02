@@ -4,7 +4,7 @@
 #
 
 # Pull base image.
-FROM dockerfile/ubuntu
+FROM oraclelinux
 
 # Install Java.
 RUN \
